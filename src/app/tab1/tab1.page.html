@@ -12,10 +12,10 @@
 <ion-content class="ion-padding">
 
   <ion-card *ngFor="let arbol of arboles">
-    <img [src]="arbol.imagen" />
+    <img [src]="'assets/pino.jpg'" />
 
     <ion-card-header>
-      <ion-card-title>{{ arbol.nombre }}</ion-card-title>
+      <ion-card-title>{{ arbol.idEspecie.nombreComun }}</ion-card-title>
     </ion-card-header>
 
     <ion-card-content>

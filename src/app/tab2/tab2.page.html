@@ -1,52 +1,23 @@
 <ion-header>
   <ion-toolbar color="success">
-    <ion-title>Arbol Juan</ion-title>
+    <ion-title>Mis Árboles</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
 
-  <!-- Imagen -->
-  <img class="imagen-arbol" src="assets/pino.jpg" />
+  <ion-card *ngFor="let arbol of arboles" (click)="verDetalle(arbol)">
+    <img src="assets/pino.jpg" />
 
-  <!-- Nombre + acciones -->
-  <div class="header-info">
-    <h2>Arbol Juan</h2>
+    <ion-card-header>
+      <ion-card-title>
+        {{ arbol.idEspecie.nombreComun }}
+      </ion-card-title>
+    </ion-card-header>
 
-    <div class="acciones">
-      <ion-icon name="create-outline"></ion-icon>
-      <ion-icon name="water-outline"></ion-icon>
-      <ion-icon name="scan-outline"></ion-icon>
-      <ion-icon name="add-circle-outline"></ion-icon>
-      <ion-icon name="close-circle-outline"></ion-icon>
-    </div>
-  </div>
-
-  <!-- Estado -->
-  <p class="salud">
-    Salud: <span>Buena</span>
-  </p>
-
-  <!-- Descripción -->
-  <p class="descripcion">
-    Body text for your whole article or post. We'll put in some lorem ipsum
-    to show how a filled-out page might look:
-  </p>
+    <ion-card-content>
+      {{ arbol.descripcion }}
+    </ion-card-content>
+  </ion-card>
 
 </ion-content>
-
-<ion-footer>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-button>
-        <ion-icon name="walk-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-
-    <ion-buttons slot="end">
-      <ion-button>
-        <ion-icon name="person-outline"></ion-icon>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-footer>

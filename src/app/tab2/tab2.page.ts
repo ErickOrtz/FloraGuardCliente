@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-
+import { Arbol } from '../services/arbol';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab2',
@@ -10,8 +11,31 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [IonicModule, CommonModule]
 })
-export class Tab2Page {
+export class Tab2Page implements OnInit {
 
-  constructor() {}
+  arboles: any[] = [];
 
+  constructor(
+    private arbolService: Arbol,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.cargarArboles();
+  }
+
+  cargarArboles() {
+    this.arbolService.getArboles().subscribe({
+      next: (data: any) => {
+        this.arboles = data.data;
+      },
+      error: (err) => console.error(err)
+    });
+  }
+
+  verDetalle(arbol: any) {
+    this.router.navigate(['/detalle-arbol', arbol.id], {
+      state: { arbol } // 👈 enviamos el objeto completo
+    });
+  }
 }

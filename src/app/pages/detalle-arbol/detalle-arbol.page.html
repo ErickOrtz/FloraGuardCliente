@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="success">
+
+    <!-- 🔙 Botón regresar -->
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/tabs/tab2"></ion-back-button>
+    </ion-buttons>
+
+    <ion-title>
+      {{ arbol?.idEspecie?.nombreComun }}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <!-- Imagen -->
+  <img class="imagen-arbol" src="assets/pino.jpg" />
+
+  <!-- Nombre + acciones -->
+  <div class="header-info">
+    <h2>{{ arbol?.idEspecie?.nombreComun }}</h2>
+
+    <div class="acciones">
+      <ion-icon name="create-outline"></ion-icon>
+      <ion-icon name="water-outline"></ion-icon>
+      <ion-icon name="scan-outline"></ion-icon>
+      <ion-icon name="add-circle-outline"></ion-icon>
+      <ion-icon name="close-circle-outline"></ion-icon>
+    </div>
+  </div>
+
+  <!-- Estado -->
+  <p class="salud">
+    Salud: 
+    <span [ngClass]="arbol?.estado">
+      {{ arbol?.estado?.trim().toUpperCase() }}
+    </span>
+  </p>
+
+  <!-- Descripción -->
+  <p class="descripcion">
+    {{ arbol?.descripcion }}
+  </p>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button>
+        <ion-icon name="walk-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

@@ -1,39 +1,16 @@
-.imagen-arbol {
+ion-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+img {
   width: 100%;
-  height: 220px;
+  height: 200px;
   object-fit: cover;
-  border-radius: 10px;
-  margin-bottom: 15px;
 }
 
-.header-info {
+.adoptar {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.header-info h2 {
-  margin: 0;
-  font-weight: bold;
-}
-
-.acciones ion-icon {
-  font-size: 20px;
-  margin-left: 8px;
-  color: #444;
-}
-
-.salud {
+  justify-content: flex-end;
   margin-top: 10px;
-  font-size: 16px;
-}
-
-.salud span {
-  color: green;
-  font-weight: bold;
-}
-
-.descripcion {
-  margin-top: 15px;
-  color: #666;
 }
