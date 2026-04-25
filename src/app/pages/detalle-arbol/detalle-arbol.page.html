@@ -15,7 +15,8 @@
 <ion-content class="fondo ion-padding">
 
   <!-- Imagen -->
-  <img class="imagen-arbol" src="assets/pino.jpg" />
+  <img class="imagen-arbol" 
+     [src]="arbol?.urlImagen || 'assets/pino.jpg'" />
 
   <!-- Nombre + acciones -->
   <div class="header-info">

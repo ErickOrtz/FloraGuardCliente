@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { Arbol } from 'src/app/services/arbol'; // ajusta ruta
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-detalle-arbol',
@@ -15,17 +16,23 @@ import { Arbol } from 'src/app/services/arbol'; // ajusta ruta
 export class DetalleArbolPage implements OnInit {
 
   arbol: any;
-
-constructor(
-  private router: Router,
-  private arbolService: Arbol
-) {}
+  
+  constructor(
+    private route: ActivatedRoute,
+    private arbolService: Arbol
+  ) { }
 
   ngOnInit() {
-    const nav = this.router.getCurrentNavigation();
-    this.arbol = nav?.extras?.state?.['arbol'];
+    const id = this.route.snapshot.paramMap.get('id');
 
-    console.log('Arbol recibido:', this.arbol);
+    if (id) {
+      this.arbolService.obtenerArbolPorId(+id)
+        .subscribe((resp: any) => {
+          if (resp.success == true) {
+            this.arbol = resp.data;
+          }
+        });
+    }
   }
 
   modalAbierto: boolean = false;
@@ -51,7 +58,7 @@ constructor(
       .subscribe((resp: any) => {
 
         if (resp.success == true) {
-          this.arbol.nombre = this.nuevoNombre;
+          this.arbol = resp.data;
           this.cerrarModal();
         } else {
           console.error(resp.mensaje);

@@ -23,6 +23,11 @@ const routes: Routes = [
         path: '',
         redirectTo: '/tabs/tab1',
         pathMatch: 'full'
+      },
+      {
+        path: 'tab2/detalle/:id',
+        loadComponent: () => import('../pages/detalle-arbol/detalle-arbol.page')
+          .then(m => m.DetalleArbolPage)
       }
     ]
   },
@@ -36,4 +41,4 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
 })
-export class TabsPageRoutingModule {}
+export class TabsPageRoutingModule { }

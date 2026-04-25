@@ -7,7 +7,7 @@
 <ion-content class="fondo">
 
   <ion-card *ngFor="let arbol of arboles" (click)="verDetalle(arbol)">
-    <img src="assets/pino.jpg" />
+    <img [src]="arbol?.urlImagen || 'assets/pino.jpg'" />
 
     <ion-card-header>
       <ion-card-title>

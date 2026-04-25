@@ -34,8 +34,6 @@ export class Tab2Page implements OnInit {
   }
 
   verDetalle(arbol: any) {
-    this.router.navigate(['/detalle-arbol', arbol.id], {
-      state: { arbol } // 👈 enviamos el objeto completo
-    });
+    this.router.navigate(['/tabs/tab2/detalle', arbol.id]);
   }
 }
