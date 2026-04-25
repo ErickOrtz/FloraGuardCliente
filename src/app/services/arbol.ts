@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -12,5 +12,13 @@ export class Arbol {
 
   getArboles() {
     return this.http.get(`${this.apiUrl}/listar/arboles`);
+  }
+
+    cambiarNombreArbol(idArbol: number, nombreNuevo: string) {
+    const params = new HttpParams()
+      .set('idArbol', idArbol)
+      .set('nombreNuevo', nombreNuevo);
+
+    return this.http.post(`${this.apiUrl}/cambiar/nombre/arbol`, null, { params });
   }
 }
