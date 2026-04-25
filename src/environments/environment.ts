@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API_FLORAGUARD_URL: 'http://localhost:8080/floraguard'
+  API_FLORAGUARD_URL: 'http://localhost:8081/floraguard'
 };
 
 /*

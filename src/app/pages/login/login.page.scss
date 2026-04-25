@@ -1,0 +1,70 @@
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.app-title {
+  color: #21632b;
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+.login-header {
+  display: flex;
+  align-items: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #21632b;
+  margin-bottom: 0.5rem;
+
+  ion-icon {
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+  }
+}
+
+.subtitle {
+  color: #444;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.input-item {
+  --border-color: #21632b;
+  --highlight-color-focused: #21632b;
+  border: 1px solid #21632b;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+  background: #fff;
+}
+
+.links {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.2rem;
+
+  .forgot, .register {
+    color: #21632b;
+    font-size: 0.95rem;
+    text-decoration: none;
+    margin-left: 0.3rem;
+  }
+  .forgot {
+    font-style: italic;
+  }
+}
+
+.login-btn {
+  --background: #21632b;
+  --background-hover: #18501f;
+  --border-radius: 6px;
+  margin-top: 1.5rem;
+  font-weight: bold;
+}

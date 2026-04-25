@@ -1,14 +1,11 @@
 import { Injectable } from '@angular/core';
 
+const KEY_DEVICE = 'device_id';
+
 @Injectable({
   providedIn: 'root',
 })
-
-const KEY_DEVICE = 'device_id';
-
-@injectable({providedIn: 'root',})
 export class Device {
-  
   /*
     * Obtiene el ID del dispositivo desde el almacenamiento local o lo crea si no existe.
     * @returns {Promise<string>} El ID del dispositivo.
@@ -21,13 +18,11 @@ export class Device {
     * @version 1.0.0
     * @since 22-04-2026
   */  
-  async obtenerOCrearIdDispositivo{
+  async obtenerOCrearIdDispositivo(): Promise<string> {
     let id = localStorage.getItem(KEY_DEVICE);
     if (id) return id;
     id = crypto.randomUUID();
     localStorage.setItem(KEY_DEVICE, id);
     return id;
   }
-
-
 }

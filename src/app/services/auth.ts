@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { firstValueFrom } from 'rxjs';
@@ -38,6 +39,15 @@ export interface LoginResponseWeb{
 export class Auth {
   // URL base del servicio de autenticación, obtenida del archivo de entorno.
   private baseUrlServicio = environment.API_FLORAGUARD_URL;
+  /**
+   * Prueba la conexión con el backend llamando al endpoint base.
+   * @returns {Promise<any>} La respuesta del backend.
+   */
+  async getTestConnection(): Promise<any> {
+    return await firstValueFrom(
+      this.http.get(`${this.baseUrlServicio}/`)
+    );
+  }
   
   /*Constructor de la clase Auth.
   * @param {HttpClient} http - El cliente HTTP de Angular para realizar solicitudes al backend.
@@ -73,7 +83,7 @@ export class Auth {
   }): Promise<LoginResponseMobile | LoginResponseWeb> {
     return await firstValueFrom(
       this.http.post<LoginResponseMobile | LoginResponseWeb>(
-        `${this.baseUrlServicio}/api/auth/login`,
+        `${this.baseUrlServicio}/auth/login`,
         params,
         { withCredentials: params.clientType === 'WEB' }
       )
