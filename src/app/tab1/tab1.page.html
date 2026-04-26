@@ -11,14 +11,13 @@
 </ion-header>
 
 <ion-content class="fondo">
-
-  <ion-card *ngFor="let arbol of arboles">
+<h2>Prueba</h2>
+  <ion-card *ngFor="let arbol of arbolesPaginados">
     <img [src]="arbol?.urlImagen || 'assets/pino.jpg'"  />
 
     <ion-card-header>
       <ion-card-title>{{ arbol?.nombre || arbol?.idEspecie?.nombreComun }} #{{arbol.id}}</ion-card-title>
     </ion-card-header>
-
     <ion-card-content>
       {{ arbol.descripcion }}
 
@@ -29,5 +28,17 @@
       </div>
     </ion-card-content>
   </ion-card>
+  <div class="paginacion">
+  <ion-button (click)="prevPage()" [disabled]="currentPage === 0">
+    Anterior
+  </ion-button>
 
+  <span>Página {{ currentPage + 1 }}</span>
+
+  <ion-button 
+    (click)="nextPage()" 
+    [disabled]="(currentPage + 1) * pageSize >= arboles.length">
+    Siguiente
+  </ion-button>
+</div>
 </ion-content>

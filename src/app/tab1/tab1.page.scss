@@ -49,3 +49,11 @@ ion-card-content {
   --color: #1B5E20;
   --border-color: #1B5E20;
 }
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+}

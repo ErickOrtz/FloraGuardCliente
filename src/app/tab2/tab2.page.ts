@@ -36,4 +36,5 @@ export class Tab2Page implements OnInit {
   verDetalle(arbol: any) {
     this.router.navigate(['/tabs/tab2/detalle', arbol.id]);
   }
+
 }

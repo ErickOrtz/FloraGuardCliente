@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tabs',
@@ -7,7 +8,11 @@ import { Component } from '@angular/core';
   standalone: false,
 })
 export class TabsPage {
+  constructor(private router: Router) {}
 
-  constructor() {}
-
+  onTabsWillChange(event: any) {
+    if (event?.detail?.tab === 'tab2') {
+      this.router.navigate(['/tabs/tab2'], { replaceUrl: true });
+    }
+  }
 }
