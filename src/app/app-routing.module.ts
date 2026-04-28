@@ -9,13 +9,6 @@ const routes: Routes = [
     loadComponent: () =>
       import('./pages/login/login.page').then((m) => m.LoginPage),
   },
-
-  // Tabs (ajusta según tu estructura real)
-  {
-    path: 'tabs',
-    loadComponent: () =>
-      import('./pages/tabs/tabs.page').then((m) => m.TabsPage),
-  },
   {
     path: 'inicio',
     loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
