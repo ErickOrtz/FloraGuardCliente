@@ -5,8 +5,6 @@ import { firstValueFrom } from 'rxjs';
 import { environment } from 'src/environments/environment.prod';
 
 export type Cliente = 'WEB' | 'MOBILE';
-
-
 /*
   * Interfaz que representa la respuesta de una solicitud de inicio de 
   * sesión en la aplicación móvil.

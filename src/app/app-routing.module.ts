@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', redirectTo: 'inicio', pathMatch: 'full' },
 
   {
     path: 'login',
@@ -16,8 +16,20 @@ const routes: Routes = [
     loadComponent: () =>
       import('./pages/tabs/tabs.page').then((m) => m.TabsPage),
   },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./pages/inicio/inicio.module').then( m => m.InicioPageModule)
+  },
+  {
+    path: 'olvide-password',
+    loadChildren: () => import('./pages/olvide-password/olvide-password.module').then( m => m.OlvidePasswordPageModule)
+  },
+  {
+    path: 'registrar',
+    loadChildren: () => import('./pages/registrar/registrar.module').then( m => m.RegistrarPageModule)
+  }
 
-  { path: '**', redirectTo: 'login' },
+
 ];
 
 @NgModule({

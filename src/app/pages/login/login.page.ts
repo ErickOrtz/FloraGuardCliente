@@ -1,11 +1,13 @@
+
 import { Component } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { Auth, Cliente } from 'src/app/services/auth';
 import { Device } from 'src/app/services/device';
 import { HttpClientModule } from '@angular/common/http';
+
 
 @Component({
   selector: 'app-login',
@@ -17,8 +19,16 @@ import { HttpClientModule } from '@angular/common/http';
 
 export class LoginPage {
 
+  goToOlvidePassword() {
+    this.router.navigateByUrl('/olvide-password');
+  }
+
+  goToRegistrar() {
+    this.router.navigateByUrl('/registrar');
+  }
+
   ionViewDidEnter() {
-    this.testBackendConnection();
+    //this.testBackendConnection();
   }
 
   async testBackendConnection() {
@@ -51,18 +61,25 @@ export class LoginPage {
   // Para tu caso: en app móvil usa MOBILE
   clientType: Cliente = 'MOBILE';
 
+
   form = this.fb.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
-
 
   constructor(
     private fb: FormBuilder,
     private auth: Auth,
     private device: Device,
     private router: Router
-  ) {}
+  ) {
+    // Precargar usuario si existe en localStorage
+    const preloadUser = localStorage.getItem('preload_username');
+    if (preloadUser) {
+      this.form.get('username')?.setValue(preloadUser);
+      localStorage.removeItem('preload_username');
+    }
+  }
 
   async onSubmit() {
     this.errorMsg = '';

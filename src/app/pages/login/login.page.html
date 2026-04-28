@@ -1,46 +1,59 @@
-<ion-content class="ion-padding login-content">
-  <ion-alert
-    [isOpen]="showErrorModal"
-    header="Error de sesión"
-    [message]="errorMsg"
-    [buttons]="alertButtons"
-    (didDismiss)="showErrorModal = false"
-  ></ion-alert>
-  <h1 class="app-title">Flora Guard</h1>
-  <div class="login-header">
-    <ion-icon name="person-circle-outline"></ion-icon>
-    <span>Iniciar Sesión</span>
+<ion-content class="login-content">
+  <div class="login-container">
+    <h1 class="app-title">Flora Guard</h1>
+
+    <div class="login-header">
+      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+      <span>Iniciar Sesión</span>
+    </div>
+
+    <p class="subtitle">
+      Ingrese el usuario y contraseña para continuar.
+    </p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-label class="field-label">Usuario</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input
+          placeholder="UsuarioExample"
+          formControlName="username"
+          autocomplete="username"
+        ></ion-input>
+      </ion-item>
+
+      <ion-label class="field-label">Contraseña</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input
+          placeholder="********"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+        ></ion-input>
+      </ion-item>
+
+      <div class="links">
+        <a class="forgot" (click)="goToOlvidePassword(); $event.preventDefault()" href="#">
+          Olvidé mi contraseña
+        </a>
+      </div>
+
+      <div class="register-row">
+        <span>¿Nuevo usuario?</span>
+        <a class="register" (click)="goToRegistrar(); $event.preventDefault()" href="#">Registrarse</a>
+      </div>
+
+      <ion-button
+        class="login-btn"
+        expand="block"
+        type="submit"
+        [disabled]="loading"
+      >
+        Ingresar
+      </ion-button>
+
+      <ion-text color="danger" class="error" *ngIf="errorMsg">
+        {{ errorMsg }}
+      </ion-text>
+    </form>
   </div>
-  <p class="subtitle">
-    Ingrese el usuario y contraseña para continuar.
-  </p>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <ion-item lines="none" class="input-item">
-      <ion-label position="stacked">Usuario</ion-label>
-      <ion-input formControlName="username"></ion-input>
-    </ion-item>
-    <ion-text color="danger" *ngIf="form.get('username')?.touched && form.get('username')?.invalid">
-      Usuario requerido
-    </ion-text>
-
-    <ion-item lines="none" class="input-item">
-      <ion-label position="stacked">Contraseña</ion-label>
-      <ion-input type="password" formControlName="password"></ion-input>
-    </ion-item>
-    <ion-text color="danger" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
-      Contraseña requerida
-    </ion-text>
-
-    <div class="links">
-      <a class="forgot" href="#">Olvide mi contraseña</a>
-    </div>
-    <div class="links">
-      <span>¿Nuevo usuario?</span>
-      <a class="register" href="#">Registrarse</a>
-    </div>
-
-    <ion-button expand="block" class="login-btn" type="submit" [disabled]="loading">
-      {{ loading ? 'Ingresando...' : 'Ingresar' }}
-    </ion-button>
-  </form>
 </ion-content>
