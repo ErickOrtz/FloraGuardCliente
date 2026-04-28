@@ -3,12 +3,13 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Arbol } from '../../services/arbol';
 import { Usuario } from 'src/app/services/usuario';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-tab1',
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss'],
-  imports: [IonicModule, CommonModule]
+  imports: [IonicModule, CommonModule, FormsModule]
 })
 export class Tab1Page implements OnInit {
 
@@ -28,6 +29,8 @@ export class Tab1Page implements OnInit {
   arboles: any[] = [];
   currentPage = 0;
   pageSize = 5;
+  modalBusquedaAbierto = false;
+  idBusqueda: number | null = null;
 
   constructor(private arbolService: Arbol, private usuarioService: Usuario) { }
 
@@ -81,4 +84,49 @@ export class Tab1Page implements OnInit {
       this.currentPage--;
     }
   }
+
+  adoptar(arbol: any) {
+  this.arbolService.adoptarArbol(arbol.id).subscribe({
+    next: (res: any) => {
+      console.log('Adopción exitosa', res);
+
+      // 🔥 Opcional: recargar lista
+      this.cargarArboles();
+    },
+    error: (err) => {
+      console.error('Error al adoptar:', err);
+    }
+  });
+}
+abrirModalBusqueda() {
+  this.modalBusquedaAbierto = true;
+}
+
+cerrarModalBusqueda() {
+  this.modalBusquedaAbierto = false;
+  this.idBusqueda = null;
+}
+buscarPorId() {
+  if (!this.idBusqueda) return;
+
+  this.arbolService.obtenerArbolPorId(this.idBusqueda).subscribe({
+    next: (res: any) => {
+      console.log('Resultado:', res);
+
+      if (res.data) {
+        this.arboles = [res.data]; // 👈 reemplaza lista
+        this.currentPage = 0;
+      } else {
+        this.arboles = [];
+      }
+
+      this.cerrarModalBusqueda();
+    },
+    error: (err) => {
+      console.error('Error:', err);
+      this.arboles = [];
+      this.cerrarModalBusqueda();
+    }
+  });
+}
 }

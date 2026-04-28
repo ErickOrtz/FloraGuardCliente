@@ -3,6 +3,7 @@ import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Arbol } from '../../services/arbol';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/services/usuario';
 
 @Component({
   selector: 'app-tab2',
@@ -17,12 +18,43 @@ export class Tab2Page implements OnInit {
 
   constructor(
     private arbolService: Arbol,
-    private router: Router
+    private router: Router,
+    private usuarioService: Usuario
   ) {}
+   user: any;
 
   ngOnInit() {
-    this.cargarArboles();
+    this.cargarArbolesAdoptados();
   }
+
+  ionViewDidEnter() {
+    let accesToken = localStorage.getItem('access_token');
+    if (accesToken) {
+      this.usuarioService.getUsuarioActual(accesToken).subscribe({
+        next: (data) => {
+          console.log('Usuario actual:', data);
+          this.user = data.data.usuario;
+        },
+        error: (err) => {
+          console.error('Error al obtener usuario actual:', err);
+        }
+      });
+    }
+  }
+  
+  cargarArbolesAdoptados() {
+  this.arbolService.getArbolesAdoptados().subscribe({
+    next: (res: any) => {
+      console.log('Respuesta:', res);
+
+      // 👇 ajusta según tu backend
+      this.arboles = res.data;
+    },
+    error: (err) => {
+      console.error('Error:', err);
+    }
+  });
+}
 
   cargarArboles() {
     this.arbolService.getArboles().subscribe({

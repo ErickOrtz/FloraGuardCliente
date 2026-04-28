@@ -27,4 +27,27 @@ export class Arbol {
       params: { idArbol: id }
     });
   }
+
+  getArbolesAdoptados() {
+    const token = localStorage.getItem('access_token');
+
+    const headers = {
+      Authorization: `Bearer ${token}`
+    };
+    return this.http.get<any>(`${this.apiUrl}/obtener/arboles/adoptados`, { headers });
+  }
+
+  adoptarArbol(id: number) {
+    const token = localStorage.getItem('access_token');
+
+    return this.http.post(
+      `http://localhost:8081/floraguard/adopciones/adoptar?idArbol=${id}`,
+      {}, // 👈 body vacío
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+  }
 }
