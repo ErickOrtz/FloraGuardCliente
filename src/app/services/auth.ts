@@ -31,6 +31,11 @@ export interface LoginResponseWeb{
   message: string;
 }
 
+export interface RefreshTokenResponse {
+  accessToken: string;
+  refreshToken: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -86,6 +91,23 @@ export class Auth {
         { withCredentials: params.clientType === 'WEB' }
       )
     );
+  }
+
+  async refreshToken(params: { refreshToken: string; clientType: Cliente; deviceId: string }): Promise<RefreshTokenResponse> {
+    return await firstValueFrom(
+      this.http.post<RefreshTokenResponse>(
+        `${this.baseUrlServicio}/auth/refresh`,
+        params,
+        { withCredentials: params.clientType === 'WEB' }
+      )
+    );
+  }
+
+  async logout(params: { deviceId: string, refreshToken: string }): Promise<void> {
+    await firstValueFrom(
+      this.http.post(`${this.baseUrlServicio}/auth/logout`, {}, { withCredentials: true })
+    );
+    this.logoutLocal();
   }
 
   setAccessToken(token: string) {

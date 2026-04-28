@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
 import { Arbol } from '../../services/arbol';
+import { Usuario } from 'src/app/services/usuario';
 
 @Component({
   selector: 'app-tab1',
@@ -28,10 +29,24 @@ export class Tab1Page implements OnInit {
   currentPage = 0;
   pageSize = 5;
 
-  constructor(private arbolService: Arbol) { }
+  constructor(private arbolService: Arbol, private usuarioService: Usuario) { }
 
   ngOnInit() {
     this.cargarArboles();
+  }
+
+  ionViewDidEnter() {
+    let accesToken = localStorage.getItem('access_token');
+    if (accesToken) {
+      this.usuarioService.getUsuarioActual(accesToken).subscribe({
+        next: (data) => {
+          console.log('Usuario actual:', data);
+        },
+        error: (err) => {
+          console.error('Error al obtener usuario actual:', err);
+        }
+      });
+    }
   }
 
   cargarArboles() {

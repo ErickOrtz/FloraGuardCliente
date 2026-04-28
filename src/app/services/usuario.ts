@@ -27,34 +27,62 @@ export interface RespuestaGeneral {
 export class Usuario {
   private apiUrl = environment.API_FLORAGUARD_URL + '/usuarios/registrar/guardian';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   registrarUsuarioGuardian(datosUsuario: UsuarioRequest): Observable<RespuestaGeneral> {
     console.log('Enviando datos al backend:', datosUsuario);
-      return this.http.post<RespuestaGeneral>(this.apiUrl, datosUsuario).pipe(
-        catchError((error: HttpErrorResponse) => {
-          let respuesta: RespuestaGeneral = {
-            exito: false,
-            mensaje: 'Error de conexión o del servidor.',
-            data: null,
-            codigo: error.status || 500
-          };
-          // Manejo de error anidado en error.error.error y error.error.message
-          if (error.error) {
-            // Si el backend responde con { error: -1, message: '...' }
-            if (typeof error.error === 'object') {
-              if ('error' in error.error && 'message' in error.error) {
-                respuesta.codigo = error.error.error;
-                respuesta.mensaje = error.error.message;
-              } else if ('mensaje' in error.error && 'codigo' in error.error) {
-                respuesta.codigo = error.error.codigo;
-                respuesta.mensaje = error.error.mensaje;
-              }
+    return this.http.post<RespuestaGeneral>(this.apiUrl, datosUsuario).pipe(
+      catchError((error: HttpErrorResponse) => {
+        let respuesta: RespuestaGeneral = {
+          exito: false,
+          mensaje: 'Error de conexión o del servidor.',
+          data: null,
+          codigo: error.status || 500
+        };
+        // Manejo de error anidado en error.error.error y error.error.message
+        if (error.error) {
+          // Si el backend responde con { error: -1, message: '...' }
+          if (typeof error.error === 'object') {
+            if ('error' in error.error && 'message' in error.error) {
+              respuesta.codigo = error.error.error;
+              respuesta.mensaje = error.error.message;
+            } else if ('mensaje' in error.error && 'codigo' in error.error) {
+              respuesta.codigo = error.error.codigo;
+              respuesta.mensaje = error.error.mensaje;
             }
           }
-          console.error('Error HTTP:', error);
-          return throwError(() => respuesta);
-        })
-      );
+        }
+        console.error('Error HTTP:', error);
+        return throwError(() => respuesta);
+      })
+    );
+  }
+
+  getUsuarioActual(accessToken: string): Observable<any> {
+    const url = `${environment.API_FLORAGUARD_URL}/usuarios/me`;
+    const headers = { Authorization: `Bearer ${accessToken}` };
+    return this.http.get<any>(url, { headers }).pipe(
+      catchError((error: HttpErrorResponse) => {
+        // Manejo de errores similar al de otros métodos
+        let respuesta: RespuestaGeneral = {
+          exito: false,
+          mensaje: 'Error de conexión o del servidor.',
+          data: null,
+          codigo: error.status || 500
+        };
+        if (error.error) {
+          if (typeof error.error === 'object') {
+            if ('error' in error.error && 'message' in error.error) {
+              respuesta.codigo = error.error.error;
+              respuesta.mensaje = error.error.message;
+            } else if ('mensaje' in error.error && 'codigo' in error.error) {
+              respuesta.codigo = error.error.codigo;
+              respuesta.mensaje = error.error.mensaje;
+            }
+          }
+        }
+        return throwError(() => respuesta);
+      })
+    );
   }
 }
