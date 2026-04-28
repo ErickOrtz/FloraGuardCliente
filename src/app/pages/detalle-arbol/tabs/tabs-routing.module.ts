@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'tab2/detalle/:id',
-        loadComponent: () => import('../pages/detalle-arbol/detalle-arbol.page')
+        loadComponent: () => import('../detalle-arbol.page')
           .then(m => m.DetalleArbolPage)
       }
     ]
