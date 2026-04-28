@@ -1,0 +1,124 @@
+ion-input, input, .input-item input, .input-item .native-input, .input-item .input {
+  color: #111 !important;
+  background: #fff !important;
+  font-size: 15px !important;
+  caret-color: #21632b !important;
+  z-index: 1;
+}
+.login-content {
+  --background: #ffffff;
+}
+
+.login-content::part(scroll) {
+  display: flex;
+  justify-content: center;
+  padding: 10px 22px 28px;
+}
+
+.login-container {
+  width: 100%;
+  max-width: 420px;
+}
+
+.app-title {
+  color: #21632b;
+  font-size: 44px;
+  font-weight: 800;
+  margin: 0 0 18px 0;
+  text-align: left;
+}
+
+.login-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 800;
+  color: #21632b;
+  margin-bottom: 6px;
+  margin-top: 35%;
+
+  ion-icon {
+    font-size: 22px;
+  }
+}
+
+.subtitle {
+  color: #666;
+  font-size: 13px;
+  margin: 0 0 18px 0;
+  line-height: 1.25;
+}
+
+.field-label {
+  display: block;
+  margin: 10px 0 6px;
+  color: #4a4a4a;
+  font-size: 12px;
+}
+
+.input-item {
+  --background: #fff;
+  --padding-start: 14px;
+  --inner-padding-end: 14px;
+  --min-height: 44px;
+  --border-color: transparent;
+  --highlight-height: 0;
+
+  border: 1px solid #21632b;
+  border-radius: 12px;
+  margin-bottom: 6px;
+}
+
+.links {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+
+  .forgot {
+    color: #21632b;
+    font-size: 13px;
+    text-decoration: underline;
+    font-style: italic;
+    cursor: pointer;
+    transition: color 0.2s;
+  }
+  .forgot:hover, .forgot:active, .forgot:focus {
+    color: #18501f;
+    text-decoration: underline;
+    outline: none;
+  }
+}
+
+.register-row {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #2f2f2f;
+
+  .register {
+    color: #21632b;
+    text-decoration: none;
+    font-weight: 700;
+  }
+}
+
+.login-btn {
+  --background: #21632b;
+  --background-hover: #18501f;
+  --border-radius: 10px;
+
+  margin-top: 18px;
+  height: 44px;
+  font-weight: 700;
+  text-transform: none;
+}
+
+.error {
+  display: block;
+  margin-top: 12px;
+  font-size: 12px;
+}

@@ -1,0 +1,59 @@
+<ion-content class="login-content">
+  <div class="login-container">
+    <h1 class="app-title">Flora Guard</h1>
+
+    <div class="login-header">
+      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+      <span>Iniciar Sesión</span>
+    </div>
+
+    <p class="subtitle">
+      Ingrese el usuario y contraseña para continuar.
+    </p>
+
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-label class="field-label">Usuario</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input
+          placeholder="UsuarioExample"
+          formControlName="username"
+          autocomplete="username"
+        ></ion-input>
+      </ion-item>
+
+      <ion-label class="field-label">Contraseña</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input
+          placeholder="********"
+          type="password"
+          formControlName="password"
+          autocomplete="current-password"
+        ></ion-input>
+      </ion-item>
+
+      <div class="links">
+        <a class="forgot" (click)="goToOlvidePassword(); $event.preventDefault()" href="#">
+          Olvidé mi contraseña
+        </a>
+      </div>
+
+      <div class="register-row">
+        <span>¿Nuevo usuario?</span>
+        <a class="register" (click)="goToRegistrar(); $event.preventDefault()" href="#">Registrarse</a>
+      </div>
+
+      <ion-button
+        class="login-btn"
+        expand="block"
+        type="submit"
+        [disabled]="loading"
+      >
+        Ingresar
+      </ion-button>
+
+      <ion-text color="danger" class="error" *ngIf="errorMsg">
+        {{ errorMsg }}
+      </ion-text>
+    </form>
+  </div>
+</ion-content>

@@ -6,7 +6,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class Arbol {
-  private apiUrl = `${environment.url}/arbol`;
+  private apiUrl = `${environment.API_FLORAGUARD_URL}/arbol`;
 
   constructor(private http: HttpClient) { }
 

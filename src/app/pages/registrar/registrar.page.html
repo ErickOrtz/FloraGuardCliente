@@ -1,0 +1,63 @@
+
+<ion-content class="login-content">
+  <div class="login-container-fixed">
+    <h1 class="app-title">Flora Guard</h1>
+    <div class="login-header">
+      <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+      <span>Registrarse</span>
+    </div>
+    <p class="subtitle">Ingrese los datos del formulario.</p>
+  </div>
+  <div class="login-container-scroll">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <ion-text color="danger" *ngIf="errorMsg">
+        <div class="error-msg">{{ errorMsg }}</div>
+      </ion-text>
+      <ion-text color="success" *ngIf="successMsg">
+        <div class="success-msg">{{ successMsg }}</div>
+      </ion-text>
+      <ion-label class="field-label">Nombre Completo</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input placeholder="Ingrese su nombre completo" formControlName="nombre"></ion-input>
+      </ion-item>
+
+      <ion-label class="field-label">Usuario</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input placeholder="Ingrese su usuario" formControlName="usuario"></ion-input>
+      </ion-item>
+
+      <ion-label class="field-label">Contraseña</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input placeholder="********" type="password" formControlName="password"></ion-input>
+      </ion-item>
+
+      <ng-container *ngIf="showConfirm">
+        <ion-label class="field-label">Confirmar Contraseña</ion-label>
+        <ion-item class="input-item" lines="none">
+          <ion-input placeholder="********" type="password" formControlName="confirm"></ion-input>
+        </ion-item>
+        <ion-text color="danger" *ngIf="passwordMismatch">
+          Las contraseñas no coinciden
+        </ion-text>
+      </ng-container>
+
+      <ion-label class="field-label">Correo Electronico</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input placeholder="correo@example.com" formControlName="correo"></ion-input>
+      </ion-item>
+
+      <ion-label class="field-label">Telefono</ion-label>
+      <ion-item class="input-item" lines="none">
+        <ion-input placeholder="123456789" formControlName="telefono"></ion-input>
+      </ion-item>
+
+      <div class="links">
+        <a class="forgot" (click)="$event.preventDefault(); goToLogin()" href="#">Iniciar sesión</a>
+      </div>
+
+      <ion-button class="login-btn" expand="block" type="submit">
+        Registrarme
+      </ion-button>
+    </form>
+  </div>
+</ion-content>
