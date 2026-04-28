@@ -1,0 +1,59 @@
+.fondo {
+  --background: #E8F5E9;
+}
+
+.toolbar-custom {
+  --background: #1B5E20;
+  --color: white;
+}
+
+ion-card {
+  border-radius: 10px;
+  border: 2px solid #1B5E20;
+  box-shadow: none;
+  margin-bottom: 16px;
+}
+
+img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+ion-card img {
+  padding-right: 15px;
+  padding-left: 15px;
+  padding-top: 30px;
+  padding-bottom: 10px;
+  border-radius: 10px;
+}
+
+ion-card-title {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+ion-card-content {
+  color: #555;
+}
+
+/* Botón alineado a la derecha */
+.adoptar {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+/* Botón con tu color */
+.btn-adoptar {
+  --color: #1B5E20;
+  --border-color: #1B5E20;
+}
+
+.paginacion {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin: 20px 0;
+}
