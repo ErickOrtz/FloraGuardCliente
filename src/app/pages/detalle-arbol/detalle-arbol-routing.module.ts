@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { DetalleArbolPage } from './detalle-arbol.page';
+import { DetalleArbolPage } from '../detalle-arbol.page';
 
 const routes: Routes = [
   {

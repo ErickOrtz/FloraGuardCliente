@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { CommonModule } from '@angular/common';
-import { Arbol } from '../../../services/arbol';
+import { Arbol } from '../../services/arbol';
 
 @Component({
   selector: 'app-tab1',

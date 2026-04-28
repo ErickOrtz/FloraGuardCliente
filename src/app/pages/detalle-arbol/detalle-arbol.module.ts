@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { DetalleArbolPageRoutingModule } from './detalle-arbol-routing.module';
 
-import { DetalleArbolPage } from './detalle-arbol.page';
+import { DetalleArbolPage } from '../detalle-arbol.page';
 
 @NgModule({
   imports: [
