@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar class="toolbar-custom">
+    <ion-title>Arboles</ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button>
+        <ion-icon name="search-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo">
+<h2>Prueba</h2>
+  <ion-card *ngFor="let arbol of arbolesPaginados">
+    <img [src]="arbol?.urlImagen || 'assets/pino.jpg'"  />
+
+    <ion-card-header>
+      <ion-card-title>{{ arbol?.nombre || arbol?.idEspecie?.nombreComun }} #{{arbol.id}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      {{ arbol.descripcion }}
+
+      <div class="adoptar">
+        <ion-button size="small" class="btn-adoptar" fill="outline">
+          Adopt me
+        </ion-button>
+      </div>
+    </ion-card-content>
+  </ion-card>
+  <div class="paginacion">
+  <ion-button (click)="prevPage()" [disabled]="currentPage === 0">
+    Anterior
+  </ion-button>
+
+  <span>Página {{ currentPage + 1 }}</span>
+
+  <ion-button 
+    (click)="nextPage()" 
+    [disabled]="(currentPage + 1) * pageSize >= arboles.length">
+    Siguiente
+  </ion-button>
+</div>
+</ion-content>

@@ -1,0 +1,115 @@
+/* Fondo igual que las otras pantallas */
+.fondo {
+  --background: #E8F5E9;
+}
+
+/* Header verde oscuro */
+.toolbar-custom {
+  --background: #1B5E20 !important;
+  --ion-background-color: #1B5E20 !important;
+  --color: white !important;
+}
+
+/* Botón regresar blanco */
+ion-back-button {
+  --color: white;
+}
+
+/* Imagen estilo card */
+.imagen-arbol {
+  width: 100%;
+  height: 260px; /* más alto para verse mejor */
+  object-fit: cover;
+  border-radius: 10px;
+  padding: 10px; /* separación como en cards */
+  margin-bottom: 15px;
+  background: white; /* efecto tipo tarjeta */
+  border: 2px solid #1B5E20;
+}
+
+/* Header info */
+.header-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header-info h2 {
+  margin: 0;
+  font-weight: bold;
+  color: #1B5E20; /* mismo verde */
+}
+
+/* Iconos de acciones */
+.acciones ion-icon {
+  font-size: 22px;
+  margin-left: 8px;
+  color: #1B5E20; /* unificamos color */
+}
+
+/* Estado */
+.salud {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.salud span {
+  font-weight: bold;
+}
+
+/* Colores de estado (más alineados al tema) */
+.BUENO { color: #2E7D32 !important; }
+.EXCELENTE { color: #1B5E20 !important; }
+.MALO { color: #C62828 !important; }
+.REGULAR { color: #F9A825 !important; }
+.SECO { color: #6D4C41 !important; }
+
+/* Descripción */
+.descripcion {
+  margin-top: 15px;
+  color: #555;
+}
+
+/* Footer opcional (para que combine) */
+ion-footer ion-toolbar {
+  --background: #1B5E20;
+}
+
+ion-footer ion-icon {
+  color: white;
+}
+
+.icono-editar {
+  font-size: 18px;
+  margin-left: 6px;
+  color: #1B5E20;
+  cursor: pointer;
+}
+
+.titulo-editar h2 {
+  margin: 0;
+  font-weight: bold;
+  color: #1B5E20;
+}
+
+/* Grupo nombre + icono */
+.titulo-editar {
+  display: flex;
+  align-items: center;
+}
+
+.descripcion {
+  margin-top: 15px;
+  color: #555;
+  line-height: 1.5;
+  text-align: justify;
+}
+
+.descripcion strong {
+  color: #1B5E20;
+}
+
+.descripcion em {
+  font-style: italic;
+  color: #2E7D32;
+}

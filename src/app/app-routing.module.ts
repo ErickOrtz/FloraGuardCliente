@@ -5,6 +5,13 @@ const routes: Routes = [
   { path: '', redirectTo: 'inicio', pathMatch: 'full' },
 
   {
+    path: '',
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+  },
+  {
+    path: 'detalle-arbol/:id',
+    loadComponent: () => import('./pages/detalle-arbol/detalle-arbol.page').then(m => m.DetalleArbolPage)
+  }
     path: 'login',
     loadComponent: () =>
       import('./pages/login/login.page').then((m) => m.LoginPage),

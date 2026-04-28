@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar class="toolbar-custom">
+    <ion-title>Mis Árboles</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="fondo">
+
+  <ion-card *ngFor="let arbol of arboles" (click)="verDetalle(arbol)">
+    <img [src]="arbol?.urlImagen || 'assets/pino.jpg'" />
+
+    <ion-card-header>
+      <ion-card-title>
+        {{ arbol?.nombre || arbol?.idEspecie?.nombreComun }} #{{arbol.id}}
+      </ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      {{ arbol.descripcion }}
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
