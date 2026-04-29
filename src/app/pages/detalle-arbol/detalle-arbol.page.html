@@ -29,14 +29,14 @@
       </ion-icon>
     </div>
 
-    <!-- Acciones a la derecha -->
-    <div class="acciones">
+
+    <!-- <div class="acciones">
       <ion-icon name="create-outline"></ion-icon>
       <ion-icon name="water-outline"></ion-icon>
       <ion-icon name="scan-outline"></ion-icon>
       <ion-icon name="add-circle-outline"></ion-icon>
       <ion-icon name="close-circle-outline"></ion-icon>
-    </div>
+    </div> -->
 
   </div>
 
@@ -70,31 +70,3 @@
   </p>
 
 </ion-content>
-<ion-modal [isOpen]="modalAbierto" (didDismiss)="cerrarModal()">
-  <ng-template>
-
-    <ion-header>
-      <ion-toolbar class="toolbar-custom">
-        <ion-title>Editar nombre</ion-title>
-      </ion-toolbar>
-    </ion-header>
-
-    <ion-content class="ion-padding fondo">
-
-      <ion-item>
-        <ion-label position="stacked">Nuevo nombre</ion-label>
-        <ion-input [(ngModel)]="nuevoNombre"></ion-input>
-      </ion-item>
-
-      <ion-button expand="block" (click)="guardarNombre()">
-        Guardar
-      </ion-button>
-
-      <ion-button expand="block" fill="outline" (click)="cerrarModal()">
-        Cancelar
-      </ion-button>
-
-    </ion-content>
-
-  </ng-template>
-</ion-modal>

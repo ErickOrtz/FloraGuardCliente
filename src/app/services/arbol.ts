@@ -31,7 +31,7 @@ export class Arbol {
       Authorization: `Bearer ${token}`
     };
     try {
-      return this.http.get(`${this.apiUrl}/arbol/obtener/arbol`, {
+      return this.http.get(`${this.apiUrl}/obtener/arbol`, {
         params: { idArbol },
         headers
       }).toPromise();

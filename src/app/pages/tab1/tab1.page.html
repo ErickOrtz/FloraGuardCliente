@@ -28,7 +28,7 @@
     </ion-card-content>
   </ion-card>
   <div class="paginacion">
-  <ion-button (click)="prevPage()" [disabled]="currentPage === 0">
+  <ion-button (click)="prevPage()" [disabled]="currentPage === 0" class="color-botones">
     Anterior
   </ion-button>
 
@@ -36,7 +36,7 @@
 
   <ion-button 
     (click)="nextPage()" 
-    [disabled]="(currentPage + 1) * pageSize >= arboles.length">
+    [disabled]="(currentPage + 1) * pageSize >= arboles.length" class="color-botones">
     Siguiente
   </ion-button>
 </div>
