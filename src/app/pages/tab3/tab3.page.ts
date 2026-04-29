@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Usuario } from 'src/app/services/usuario';
+import { Auth } from 'src/app/services/auth';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-tab3',
@@ -7,11 +9,26 @@ import { Usuario } from 'src/app/services/usuario';
   styleUrls: ['tab3.page.scss'],
   standalone: false,
 })
-export class Tab3Page {
 
-  constructor(private usuarioService: Usuario) { }
-  
+export class Tab3Page {
   user: any;
+
+  constructor(
+    private usuarioService: Usuario,
+    private auth: Auth,
+    private router: Router
+  ) {}
+  async logout() {
+    const deviceId = localStorage.getItem('device_id') || '';
+    const refreshToken = localStorage.getItem('refresh_token') || '';
+    try {
+      await this.auth.logout({ deviceId, refreshToken });
+    } catch (err) {
+      // Si hay error igual limpiamos local
+      this.auth.logoutLocal();
+    }
+    this.router.navigate(['/login']);
+  }
 
   async ionViewDidEnter() {
     let accesToken = localStorage.getItem('access_token');
