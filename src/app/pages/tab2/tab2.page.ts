@@ -39,6 +39,7 @@ export class Tab2Page implements OnInit {
           console.error('Error al obtener usuario actual:', err);
         }
       });
+      this.cargarArbolesAdoptados();
     }
   }
   

@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { Arbol } from '../../services/arbol';
 import { Usuario } from 'src/app/services/usuario';
 import { FormsModule } from '@angular/forms';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-tab1',
@@ -32,7 +33,7 @@ export class Tab1Page implements OnInit {
   modalBusquedaAbierto = false;
   idBusqueda: number | null = null;
 
-  constructor(private arbolService: Arbol, private usuarioService: Usuario) { }
+  constructor(private arbolService: Arbol, private usuarioService: Usuario, private alertCtrl: AlertController) { }
 
   ngOnInit() {
     this.cargarArboles();
@@ -49,6 +50,7 @@ export class Tab1Page implements OnInit {
           console.error('Error al obtener usuario actual:', err);
         }
       });
+      this.cargarArboles();
     }
   }
 
