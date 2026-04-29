@@ -8,6 +8,7 @@ import { Auth } from './auth';
 })
 export class Arbol {
   private apiUrl = `${environment.API_FLORAGUARD_URL}/arbol`;
+  private apiUrlAdopcion = `${environment.API_FLORAGUARD_URL}/adopciones`;
 
   constructor(private http: HttpClient, private auth: Auth) { }
 
@@ -30,7 +31,7 @@ export class Arbol {
       Authorization: `Bearer ${token}`
     };
     try {
-      return this.http.get(`${this.apiUrl}/obtener/arbol`, {
+      return this.http.get(`${this.apiUrl}/arbol/obtener/arbol`, {
         params: { idArbol },
         headers
       }).toPromise();
@@ -95,7 +96,8 @@ export class Arbol {
       Authorization: `Bearer ${token}`
     };
     try {
-      return this.http.post(`${this.apiUrl}/adoptar/arbol`, { id }, { headers }).toPromise();
+      // El backend espera el parámetro como @RequestParam, así que debe ir en la URL
+      return await this.http.post(`${this.apiUrlAdopcion}/adoptar?idArbol=${id}`, {}, { headers }).toPromise();
     } catch (error: any) {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         // Intentar refrescar el token
@@ -110,7 +112,7 @@ export class Arbol {
           const retryHeaders = {
             Authorization: `Bearer ${token}`
           };
-          return await this.http.get<any>(`${this.apiUrl}/obtener/arboles/adoptados`, { headers: retryHeaders }).toPromise();
+          return await this.http.post(`${this.apiUrlAdopcion}/adoptar?idArbol=${id}`, {}, { headers: retryHeaders }).toPromise();
         } catch (refreshError) {
           throw refreshError;
         }
