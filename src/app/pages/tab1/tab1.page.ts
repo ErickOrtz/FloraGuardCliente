@@ -67,15 +67,16 @@ export class Tab1Page implements OnInit {
     try {
       const res: any = await this.arbolService.adoptarArbol(arbol.id);
       console.log('Respuesta de adopción:', res);
-      if (res.exito) {
-        alert('¡Árbol adoptado con éxito!');
+      if (res.error === 0) {
+        alert(res.message);
         this.cargarArboles();
+        return;
       } else {
-        alert('Error al adoptar el árbol: ' + res.mensaje);
+        alert('Error al adoptar el árbol: ' + res.message);
       }
     } catch (err: any) {
-      console.error('Error al adoptar el árbol:', err);
       alert('Error al adoptar el árbol. Por favor, inténtalo de nuevo.');
+      console.error('Error al adoptar el árbol:', err);
     }
   }
 
