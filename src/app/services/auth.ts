@@ -93,6 +93,9 @@ export class Auth {
     );
   }
 
+  
+
+
   async refreshToken(params: { refreshToken: string; clientType: Cliente; deviceId: string }): Promise<RefreshTokenResponse> {
     return await firstValueFrom(
       this.http.post<RefreshTokenResponse>(

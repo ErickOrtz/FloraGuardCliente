@@ -11,8 +11,6 @@ export class TabsPage {
   constructor(private router: Router) {}
 
   onTabsWillChange(event: any) {
-    if (event?.detail?.tab === 'tab2') {
-      this.router.navigate(['/tabs/tab2'], { replaceUrl: true });
-    }
+
   }
 }

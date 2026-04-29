@@ -14,19 +14,6 @@ import { AlertController } from '@ionic/angular';
 })
 export class Tab1Page implements OnInit {
 
-  // arboles = [
-  //   {
-  //     nombre: 'Pino',
-  //     descripcion: 'Este es un ejemplo del texto que tendrá el card.',
-  //     imagen: 'assets/pino.jpg'
-  //   },
-  //   {
-  //     nombre: 'Abeto',
-  //     descripcion: 'Otro ejemplo de descripción para el árbol.',
-  //     imagen: 'assets/pino.jpg'
-  //   }
-  // ];
-
   arboles: any[] = [];
   currentPage = 0;
   pageSize = 5;
@@ -40,18 +27,7 @@ export class Tab1Page implements OnInit {
   }
 
   ionViewDidEnter() {
-    let accesToken = localStorage.getItem('access_token');
-    if (accesToken) {
-      this.usuarioService.getUsuarioActual(accesToken).subscribe({
-        next: (data) => {
-          console.log('Usuario actual:', data);
-        },
-        error: (err) => {
-          console.error('Error al obtener usuario actual:', err);
-        }
-      });
-      this.cargarArboles();
-    }
+    this.cargarArboles();
   }
 
   cargarArboles() {
@@ -87,48 +63,99 @@ export class Tab1Page implements OnInit {
     }
   }
 
-  adoptar(arbol: any) {
-  this.arbolService.adoptarArbol(arbol.id).subscribe({
-    next: (res: any) => {
-      console.log('Adopción exitosa', res);
-
-      // 🔥 Opcional: recargar lista
-      this.cargarArboles();
-    },
-    error: (err) => {
-      console.error('Error al adoptar:', err);
-    }
-  });
-}
-abrirModalBusqueda() {
-  this.modalBusquedaAbierto = true;
-}
-
-cerrarModalBusqueda() {
-  this.modalBusquedaAbierto = false;
-  this.idBusqueda = null;
-}
-buscarPorId() {
-  if (!this.idBusqueda) return;
-
-  this.arbolService.obtenerArbolPorId(this.idBusqueda).subscribe({
-    next: (res: any) => {
-      console.log('Resultado:', res);
-
-      if (res.data) {
-        this.arboles = [res.data]; // 👈 reemplaza lista
-        this.currentPage = 0;
+  async adoptar(arbol: any) {
+    try {
+      const res: any = await this.arbolService.adoptarArbol(arbol.id);
+      console.log('Respuesta de adopción:', res);
+      if (res.exito) {
+        alert('¡Árbol adoptado con éxito!');
+        this.cargarArboles();
       } else {
-        this.arboles = [];
+        alert('Error al adoptar el árbol: ' + res.mensaje);
       }
+    } catch (err: any) {
+      console.error('Error al adoptar el árbol:', err);
+      alert('Error al adoptar el árbol. Por favor, inténtalo de nuevo.');
+    }
+  }
 
-      this.cerrarModalBusqueda();
-    },
-    error: (err) => {
+  abrirModalBusqueda() {
+    this.modalBusquedaAbierto = true;
+  }
+
+  cerrarModalBusqueda() {
+    this.modalBusquedaAbierto = false;
+    this.idBusqueda = null;
+  }
+
+  buscarPorId() {
+    if (!this.idBusqueda) return;
+    this.arbolService.obtenerArbolPorId(this.idBusqueda, "MOBILE", localStorage.getItem('device_id') || '').then((res: any) => {
+      console.log('Resultado de búsqueda:', res);
+      if (res && res.data) {
+        this.arboles = [res.data]; // Mostrar solo el árbol encontrado
+      } else {
+        console.warn('No se encontró el árbol con ID:', this.idBusqueda);
+        this.arboles = []; // Limpiar lista si no se encuentra
+      }
+    }).catch((err) => {
       console.error('Error:', err);
       this.arboles = [];
       this.cerrarModalBusqueda();
-    }
-  });
-}
+    });
+  }
+  async abrirBusqueda() {
+    const alert = await this.alertCtrl.create({
+      header: 'Buscar árbol por ID',
+      inputs: [
+        {
+          name: 'id',
+          type: 'number',
+          placeholder: 'Ej: 1'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel'
+        },
+        {
+          text: 'Buscar',
+          handler: async (data) => {
+            const id = data.id;
+            if (!id) return;
+
+            try {
+              const res: any = await this.arbolService.obtenerArbolPorId(
+                id,
+                "MOBILE",
+                localStorage.getItem('device_id') || ''
+              );
+
+              if (res.data.id) {
+                console.log(res.data);
+                this.arboles = [res.data];
+                this.currentPage = 0;
+              } else {
+                this.cargarArboles();
+                const alert = await this.alertCtrl.create({
+                header: 'Sin resultados',
+                message: 'No se encontró ningún árbol con ese ID 🌳',
+                buttons: ['OK']
+              });
+
+              await alert.present();
+              }
+
+            } catch (err) {
+              console.error(err);
+              this.arboles = [];
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

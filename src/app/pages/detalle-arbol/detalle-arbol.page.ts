@@ -26,12 +26,13 @@ export class DetalleArbolPage implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
-      this.arbolService.obtenerArbolPorId(+id)
-        .subscribe((resp: any) => {
-          if (resp.success == true) {
-            this.arbol = resp.data;
-          }
-        });
+      this.arbolService.obtenerArbolPorId(+id, "MOBILE", localStorage.getItem('device_id') || '').then((res: any) => {
+        if (res && res.data) {
+          this.arbol = res.data;
+        }
+      }).catch((err) => {
+        console.error('Error:', err);
+      });
     }
   }
 

@@ -1,1 +1,13 @@
 
+ion-tab-button img {
+  width: 22px;
+  height: 22px;
+  opacity: 0.5;
+  transition: 0.2s;
+}
+
+ion-tab-button.tab-selected img {
+  opacity: 1;
+  transform: scale(1.2);
+  filter: brightness(0) saturate(100%) invert(40%) sepia(90%) saturate(500%) hue-rotate(100deg);
+}
