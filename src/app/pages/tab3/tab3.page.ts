@@ -9,20 +9,20 @@ import { Usuario } from 'src/app/services/usuario';
 })
 export class Tab3Page {
 
-  constructor(private usuarioService: Usuario) {}
-    user: any;
-    ionViewDidEnter() {
+  constructor(private usuarioService: Usuario) { }
+  
+  user: any;
+
+  async ionViewDidEnter() {
     let accesToken = localStorage.getItem('access_token');
     if (accesToken) {
-      this.usuarioService.getUsuarioActual(accesToken).subscribe({
-        next: (data) => {
-          console.log('Usuario actual:', data);
-          this.user = data.data.usuario;
-        },
-        error: (err) => {
-          console.error('Error al obtener usuario actual:', err);
-        }
-      });
+      try {
+        const data = await this.usuarioService.getUsuarioActual(accesToken);
+        console.log('Usuario actual:', data);
+        this.user = data.data.usuario;
+      } catch (err: any) {
+        console.error('Error al obtener usuario actual:', err);
+      }
     }
   }
 }

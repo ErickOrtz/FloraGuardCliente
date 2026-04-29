@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { firstValueFrom, Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
+import { Auth } from './auth';
 
 export interface UsuarioRequest {
   nombre: string;
@@ -27,7 +28,7 @@ export interface RespuestaGeneral {
 export class Usuario {
   private apiUrl = environment.API_FLORAGUARD_URL + '/usuarios/registrar/guardian';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private auth: Auth) { }
 
   registrarUsuarioGuardian(datosUsuario: UsuarioRequest): Observable<RespuestaGeneral> {
     console.log('Enviando datos al backend:', datosUsuario);
@@ -58,12 +59,29 @@ export class Usuario {
     );
   }
 
-  getUsuarioActual(accessToken: string): Observable<any> {
+  async getUsuarioActual(accessToken: string): Promise<any> {
     const url = `${environment.API_FLORAGUARD_URL}/usuarios/me`;
-    const headers = { Authorization: `Bearer ${accessToken}` };
-    return this.http.get<any>(url, { headers }).pipe(
-      catchError((error: HttpErrorResponse) => {
-        // Manejo de errores similar al de otros métodos
+    let token = accessToken;
+    const headers = { Authorization: `Bearer ${token}` };
+    try {
+      return await firstValueFrom(this.http.get<any>(url, { headers }));
+    } catch (error: any) {
+      if (error instanceof HttpErrorResponse && error.status === 401) {
+        // Intentar refrescar el token
+        const refreshToken = localStorage.getItem('refresh_token');
+        if (!refreshToken) throw error;
+        try {
+          const refreshResponse = await this.auth.refreshToken({ refreshToken, clientType: "MOBILE", deviceId: localStorage.getItem('device_id') || '' });
+          this.auth.setAccessToken(refreshResponse.accessToken);
+          this.auth.setRefreshToken(refreshResponse.refreshToken);
+          // Reintentar la petición con el nuevo token
+          token = refreshResponse.accessToken;
+          const retryHeaders = { Authorization: `Bearer ${token}` };
+          return await firstValueFrom(this.http.get<any>(url, { headers: retryHeaders }));
+        } catch (refreshError) {
+          throw refreshError;
+        }
+      } else {
         let respuesta: RespuestaGeneral = {
           exito: false,
           mensaje: 'Error de conexión o del servidor.',
@@ -81,8 +99,8 @@ export class Usuario {
             }
           }
         }
-        return throwError(() => respuesta);
-      })
-    );
+        throw respuesta;
+      }
+    }
   }
 }

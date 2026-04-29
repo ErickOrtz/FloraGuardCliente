@@ -27,34 +27,19 @@ export class Tab2Page implements OnInit {
     this.cargarArbolesAdoptados();
   }
 
-  ionViewDidEnter() {
-    let accesToken = localStorage.getItem('access_token');
-    if (accesToken) {
-      this.usuarioService.getUsuarioActual(accesToken).subscribe({
-        next: (data) => {
-          console.log('Usuario actual:', data);
-          this.user = data.data.usuario;
-        },
-        error: (err) => {
-          console.error('Error al obtener usuario actual:', err);
-        }
-      });
-    }
+  async ionViewDidEnter() {
+
   }
   
-  cargarArbolesAdoptados() {
-  this.arbolService.getArbolesAdoptados().subscribe({
-    next: (res: any) => {
+  async cargarArbolesAdoptados() {
+    try {
+      const res: any = await this.arbolService.getArbolesAdoptados("MOBILE", localStorage.getItem('device_id') || '');
       console.log('Respuesta:', res);
-
-      // 👇 ajusta según tu backend
       this.arboles = res.data;
-    },
-    error: (err) => {
+    } catch (err: any) {
       console.error('Error:', err);
     }
-  });
-}
+  }
 
   cargarArboles() {
     this.arbolService.getArboles().subscribe({
